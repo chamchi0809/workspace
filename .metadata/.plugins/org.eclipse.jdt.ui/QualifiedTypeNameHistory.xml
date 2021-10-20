@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.GameEngine"/>
+    <fullyQualifiedTypeName name="java.awt.Window"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.Window"/>
+    <fullyQualifiedTypeName name="org.lwjglb.game.Renderer"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.Timer"/>
+    <fullyQualifiedTypeName name="org.lwjglb.game.DummyGame"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.IGameLogic"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+</qualifiedTypeNameHistroy>
