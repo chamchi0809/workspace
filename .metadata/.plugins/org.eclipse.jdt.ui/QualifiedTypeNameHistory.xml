@@ -2,11 +2,27 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="org.lwjglb.engine.GameEngine"/>
     <fullyQualifiedTypeName name="java.awt.Window"/>
-    <fullyQualifiedTypeName name="org.lwjglb.engine.Window"/>
-    <fullyQualifiedTypeName name="org.lwjglb.game.Renderer"/>
     <fullyQualifiedTypeName name="org.lwjglb.engine.Timer"/>
     <fullyQualifiedTypeName name="org.lwjglb.game.DummyGame"/>
     <fullyQualifiedTypeName name="org.lwjglb.engine.IGameLogic"/>
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="org.lwjgl.opengl.GL20"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.Utils"/>
+    <fullyQualifiedTypeName name="java.nio.charset.StandardCharsets"/>
+    <fullyQualifiedTypeName name="java.nio.file.Files"/>
+    <fullyQualifiedTypeName name="java.nio.file.Paths"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="org.lwjgl.system.MemoryUtil"/>
+    <fullyQualifiedTypeName name="java.nio.FloatBuffer"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.Window"/>
+    <fullyQualifiedTypeName name="org.lwjglb.game.Renderer"/>
+    <fullyQualifiedTypeName name="org.joml.Matrix4f"/>
+    <fullyQualifiedTypeName name="org.joml.Vector3f"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.graph.Mesh"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.graph.Transformation"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.graph.ShaderProgram"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.GameItem"/>
+    <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.graph.Texture"/>
 </qualifiedTypeNameHistroy>

@@ -24,7 +24,7 @@ public class Main {
         try {
         	boolean vSync = true;
         	IGameLogic gameLogic = new DummyGame();
-        	GameEngine gameEng = new  GameEngine("Game", 600, 480, vSync,gameLogic);
+        	GameEngine gameEng = new  GameEngine("Game", 900, 500, vSync,gameLogic);
         	gameEng.start();
         }catch(Exception excp) {
         	System.exit(-1);

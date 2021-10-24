@@ -1,3 +1,4 @@
+
 package org.lwjglb.engine;
 
 public class GameEngine implements Runnable {
@@ -25,6 +26,10 @@ public class GameEngine implements Runnable {
     	gameLoopThread.start();
     }
     
+    public void cleanup() {
+    	gameLogic.cleanup();
+    }
+    
     @Override
     public void run() {
         try {
@@ -32,13 +37,15 @@ public class GameEngine implements Runnable {
             gameLoop();
         } catch (Exception excp) {
             excp.printStackTrace();
+        }finally {
+        	cleanup();
         }
     }
-
+    
     protected void init() throws Exception {
         window.init();
         timer.init();
-        gameLogic.init();
+        gameLogic.init(window);
     }
 
     protected void gameLoop() {
