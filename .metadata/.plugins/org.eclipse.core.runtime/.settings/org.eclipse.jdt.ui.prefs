@@ -1,4 +1,4 @@
-content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="org.lwjglb.engine.graph.Transformation"><rhs name\="org.lwjglb.engine.graph.Transformation"/></lhs><lhs name\="org.lwjglb.engine.GameItem"><rhs name\="org.lwjglb.engine.GameItem"/></lhs></history>
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="org.lwjglb.engine.graph.Transformation"><rhs name\="org.lwjglb.engine.graph.Transformation"/></lhs><lhs name\="org.lwjglb.engine.GameItem"><rhs name\="org.lwjglb.engine.GameItem"/></lhs><lhs name\="java.lang.Cloneable"><rhs name\="org.joml.Vector3f"/></lhs><lhs name\="org.joml.Vector3fc"><rhs name\="org.joml.Vector3f"/></lhs><lhs name\="org.joml.Vector3f"><rhs name\="org.joml.Vector3f"/></lhs></history>
 content_assist_number_of_computers=12
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=0,0,0

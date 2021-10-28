@@ -1,20 +1,28 @@
 package org.lwjglb.game;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
+import static org.lwjgl.glfw.GLFW.*;
+
+import org.joml.Vector3f;
+import org.joml.Vector2f;
 import org.lwjglb.engine.IGameLogic;
+import org.lwjglb.engine.MouseInput;
 import org.lwjglb.engine.Window;
 import org.lwjglb.engine.graph.Mesh;
 import org.lwjglb.engine.GameItem;
 import org.lwjglb.engine.graph.Texture;
+import org.lwjglb.engine.graph.Camera;
 
 public class DummyGame implements IGameLogic {
 
-    private int direction = 0;
+    private static final float MOUSE_SENSITIVITY = .2f;
+    
+    private Vector3f cameraInc;
 
     private float rot = 0.0f;
 
     private final Renderer renderer;
+    
+    private final Camera camera;
     
     private Mesh mesh;
     
@@ -22,8 +30,11 @@ public class DummyGame implements IGameLogic {
     
     private GameItem[] gameItems = new GameItem[1];
     
+    private static final float CAMERA_POS_STEP = .05f;
+    
     public DummyGame() {
         renderer = new Renderer();
+        camera=new Camera();
     }
     
     @Override
@@ -127,28 +138,46 @@ public class DummyGame implements IGameLogic {
         mesh = new Mesh(positions, texCoords, indices, texture);        
         gameItems[0] = new GameItem(mesh);
         gameItems[0].setPosition(0, 0, -3f);
+        cameraInc = new Vector3f();
     }
 
     @Override
-    public void input(Window window) {
-        if (window.isKeyPressed(GLFW_KEY_UP)) {
-            direction = 1;
-        } else if (window.isKeyPressed(GLFW_KEY_DOWN)) {
-            direction = -1;
-        } else {
-            direction = 0;
+    public void input(Window window, MouseInput mouseInput) {
+    	cameraInc.set(0, 0, 0);
+        if (window.isKeyPressed(GLFW_KEY_W)) {
+            cameraInc.z = -1;
+        } else if (window.isKeyPressed(GLFW_KEY_S)) {
+            cameraInc.z = 1;
+        }
+        if (window.isKeyPressed(GLFW_KEY_A)) {
+            cameraInc.x = -1;
+        } else if (window.isKeyPressed(GLFW_KEY_D)) {
+            cameraInc.x = 1;
+        }
+        if (window.isKeyPressed(GLFW_KEY_Z)) {
+            cameraInc.y = -1;
+        } else if (window.isKeyPressed(GLFW_KEY_X)) {
+            cameraInc.y = 1;
         }
     }
 
     @Override
-    public void update(float interval) {
-        rot += direction;
-        gameItems[0].setRotation(rot, rot, 0);
+    public void update(float interval, MouseInput mouseInput) {
+    	// Update camera position
+        camera.movePosition(cameraInc.x * CAMERA_POS_STEP,
+            cameraInc.y * CAMERA_POS_STEP,
+            cameraInc.z * CAMERA_POS_STEP);
+
+        // Update camera based on mouse            
+        if (mouseInput.isRightButtonPressed()) {        	
+            Vector2f rotVec = mouseInput.getDisplVec();
+            camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY, rotVec.y * MOUSE_SENSITIVITY, 0);
+        }
     }
 
     @Override
     public void render(Window window) {
-        renderer.render(window, gameItems);
+        renderer.render(window, gameItems, camera);
     }
 
     @Override

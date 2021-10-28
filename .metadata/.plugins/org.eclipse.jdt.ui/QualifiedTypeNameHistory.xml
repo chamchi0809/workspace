@@ -18,11 +18,14 @@
     <fullyQualifiedTypeName name="org.lwjglb.engine.Window"/>
     <fullyQualifiedTypeName name="org.lwjglb.game.Renderer"/>
     <fullyQualifiedTypeName name="org.joml.Matrix4f"/>
-    <fullyQualifiedTypeName name="org.joml.Vector3f"/>
     <fullyQualifiedTypeName name="org.lwjglb.engine.graph.Mesh"/>
     <fullyQualifiedTypeName name="org.lwjglb.engine.graph.Transformation"/>
     <fullyQualifiedTypeName name="org.lwjglb.engine.graph.ShaderProgram"/>
-    <fullyQualifiedTypeName name="org.lwjglb.engine.GameItem"/>
     <fullyQualifiedTypeName name="org.lwjgl.opengl.GL11"/>
     <fullyQualifiedTypeName name="org.lwjglb.engine.graph.Texture"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.GameItem"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.graph.Camera"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.MouseInput"/>
+    <fullyQualifiedTypeName name="org.lwjgl.glfw.GLFW"/>
+    <fullyQualifiedTypeName name="org.joml.Vector3f"/>
 </qualifiedTypeNameHistroy>

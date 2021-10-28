@@ -6,6 +6,8 @@ public class GameEngine implements Runnable {
     public static final int TARGET_FPS = 75;
 
     public static final int TARGET_UPS = 30;
+    
+    private final MouseInput mouseInput;
 
     private final Window window;
 
@@ -18,6 +20,7 @@ public class GameEngine implements Runnable {
     public GameEngine(String windowTitle, int width, int height, boolean vSync, IGameLogic gameLogic) throws Exception {
         gameLoopThread = new Thread(this, "GAME_LOOP_THREAD");
     	window = new Window(windowTitle, width, height, vSync);
+    	mouseInput = new MouseInput();
         this.gameLogic = gameLogic;
         timer = new Timer();        
     }
@@ -44,6 +47,7 @@ public class GameEngine implements Runnable {
     
     protected void init() throws Exception {
         window.init();
+        mouseInput.init(window);
         timer.init();
         gameLogic.init(window);
     }
@@ -85,11 +89,12 @@ public class GameEngine implements Runnable {
     }
 
     protected void input() {
-        gameLogic.input(window);
+    	mouseInput.input(window);
+        gameLogic.input(window, mouseInput);
     }
 
     protected void update(float interval) {
-        gameLogic.update(interval);
+        gameLogic.update(interval, mouseInput);
     }
 
     protected void render() {
