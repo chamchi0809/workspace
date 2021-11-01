@@ -28,4 +28,10 @@
     <fullyQualifiedTypeName name="org.lwjglb.engine.MouseInput"/>
     <fullyQualifiedTypeName name="org.lwjgl.glfw.GLFW"/>
     <fullyQualifiedTypeName name="org.joml.Vector3f"/>
+    <fullyQualifiedTypeName name="java.io.BufferedReader"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.graph.OBJLoader"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="org.joml.Vector4f"/>
 </qualifiedTypeNameHistroy>

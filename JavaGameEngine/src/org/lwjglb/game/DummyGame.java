@@ -1,149 +1,101 @@
 package org.lwjglb.game;
 
-import static org.lwjgl.glfw.GLFW.*;
-
-import org.joml.Vector3f;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
+
+import static org.lwjgl.glfw.GLFW.*;
+import org.lwjglb.engine.GameItem;
 import org.lwjglb.engine.IGameLogic;
 import org.lwjglb.engine.MouseInput;
 import org.lwjglb.engine.Window;
-import org.lwjglb.engine.graph.Mesh;
-import org.lwjglb.engine.GameItem;
-import org.lwjglb.engine.graph.Texture;
 import org.lwjglb.engine.graph.Camera;
+import org.lwjglb.engine.graph.DirectionalLight;
+import org.lwjglb.engine.graph.Material;
+import org.lwjglb.engine.graph.Mesh;
+import org.lwjglb.engine.graph.OBJLoader;
+import org.lwjglb.engine.graph.PointLight;
+import org.lwjglb.engine.graph.SpotLight;
+import org.lwjglb.engine.graph.Texture;
 
 public class DummyGame implements IGameLogic {
 
-    private static final float MOUSE_SENSITIVITY = .2f;
-    
-    private Vector3f cameraInc;
+    private static final float MOUSE_SENSITIVITY = 0.2f;
 
-    private float rot = 0.0f;
+    private final Vector3f cameraInc;
 
     private final Renderer renderer;
-    
+
     private final Camera camera;
-    
-    private Mesh mesh;
-    
-    private Texture texture;
-    
-    private GameItem[] gameItems = new GameItem[1];
-    
-    private static final float CAMERA_POS_STEP = .05f;
-    
+
+    private GameItem[] gameItems;
+
+    private Vector3f ambientLight;
+
+    private PointLight[] pointLightList;
+
+    private SpotLight[] spotLightList;
+
+    private DirectionalLight directionalLight;
+
+    private float lightAngle;
+
+    private static final float CAMERA_POS_STEP = 0.05f;
+
+    private float spotAngle = 0;
+
+    private float spotInc = 1;
+
     public DummyGame() {
         renderer = new Renderer();
-        camera=new Camera();
+        camera = new Camera();
+        cameraInc = new Vector3f(0.0f, 0.0f, 0.0f);
+        lightAngle = -90;
     }
-    
+
     @Override
     public void init(Window window) throws Exception {
         renderer.init(window);
-        texture = new Texture("resources/grassblock.png");
-        float[] positions = new float[] {
-                // V0
-                -0.5f, 0.5f, 0.5f,
-                // V1
-                -0.5f, -0.5f, 0.5f,
-                // V2
-                0.5f, -0.5f, 0.5f,
-                // V3
-                0.5f, 0.5f, 0.5f,
-                // V4
-                -0.5f, 0.5f, -0.5f,
-                // V5
-                0.5f, 0.5f, -0.5f,
-                // V6
-                -0.5f, -0.5f, -0.5f,
-                // V7
-                0.5f, -0.5f, -0.5f,
-                
-                // For text coords in top face
-                // V8: V4 repeated
-                -0.5f, 0.5f, -0.5f,
-                // V9: V5 repeated
-                0.5f, 0.5f, -0.5f,
-                // V10: V0 repeated
-                -0.5f, 0.5f, 0.5f,
-                // V11: V3 repeated
-                0.5f, 0.5f, 0.5f,
 
-                // For text coords in right face
-                // V12: V3 repeated
-                0.5f, 0.5f, 0.5f,
-                // V13: V2 repeated
-                0.5f, -0.5f, 0.5f,
+        float reflectance = 1f;
+        //Mesh mesh = OBJLoader.loadMesh("/models/bunny.obj");
+        //Material material = new Material(new Vector3f(0.2f, 0.5f, 0.5f), reflectance);
 
-                // For text coords in left face
-                // V14: V0 repeated
-                -0.5f, 0.5f, 0.5f,
-                // V15: V1 repeated
-                -0.5f, -0.5f, 0.5f,
+        Mesh mesh = OBJLoader.loadMesh("resources/bunny.obj");        
+        Material material = new Material(new Vector4f(1.0f,1.0f,1.0f,1.0f), reflectance);
 
-                // For text coords in bottom face
-                // V16: V6 repeated
-                -0.5f, -0.5f, -0.5f,
-                // V17: V7 repeated
-                0.5f, -0.5f, -0.5f,
-                // V18: V1 repeated
-                -0.5f, -0.5f, 0.5f,
-                // V19: V2 repeated
-                0.5f, -0.5f, 0.5f,
-            };
-            float[] texCoords = new float[]{
-                0.0f, 0.0f,
-                0.0f, 0.5f,
-                0.5f, 0.5f,
-                0.5f, 0.0f,
-                
-                0.0f, 0.0f,
-                0.5f, 0.0f,
-                0.0f, 0.5f,
-                0.5f, 0.5f,
-                
-                // For text coords in top face
-                0.0f, 0.5f,
-                0.5f, 0.5f,
-                0.0f, 1.0f,
-                0.5f, 1.0f,
+        mesh.setMaterial(material);
+        GameItem gameItem = new GameItem(mesh);        
+        gameItem.setPosition(0, 0, -2);
+        gameItems = new GameItem[]{gameItem};
 
-                // For text coords in right face
-                0.0f, 0.0f,
-                0.0f, 0.5f,
+        ambientLight = new Vector3f(0.3f, 0.3f, 0.3f);
 
-                // For text coords in left face
-                0.5f, 0.0f,
-                0.5f, 0.5f,
+        // Point Light
+        Vector3f lightPosition = new Vector3f(0, 0, 1);
+        float lightIntensity = 1.0f;
+        PointLight pointLight = new PointLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity);
+        PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f, 1.0f);
+        pointLight.setAttenuation(att);
+        pointLightList = new PointLight[]{pointLight};
 
-                // For text coords in bottom face
-                0.5f, 0.0f,
-                1.0f, 0.0f,
-                0.5f, 0.5f,
-                1.0f, 0.5f,
-            };
-            int[] indices = new int[]{
-                // Front face
-                0, 1, 3, 3, 1, 2,
-                // Top Face
-                8, 10, 11, 9, 8, 11,
-                // Right face
-                12, 13, 7, 5, 12, 7,
-                // Left face
-                14, 15, 6, 4, 14, 6,
-                // Bottom face
-                16, 18, 19, 17, 16, 19,
-                // Back face
-                4, 6, 7, 5, 4, 7,};
-        mesh = new Mesh(positions, texCoords, indices, texture);        
-        gameItems[0] = new GameItem(mesh);
-        gameItems[0].setPosition(0, 0, -3f);
-        cameraInc = new Vector3f();
+        // Spot Light
+        lightPosition = new Vector3f(0, 0.0f, 10f);
+        pointLight = new PointLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity);
+        att = new PointLight.Attenuation(0.0f, 0.0f, 0.02f);
+        pointLight.setAttenuation(att);
+        Vector3f coneDir = new Vector3f(0, 0, -1);
+        float cutoff = (float) Math.cos(Math.toRadians(140));
+        SpotLight spotLight = new SpotLight(pointLight, coneDir, cutoff);
+        spotLightList = new SpotLight[]{spotLight, new SpotLight(spotLight)};
+
+        lightPosition = new Vector3f(-1, 0, 0);
+        directionalLight = new DirectionalLight(new Vector3f(0.95f, 0.7f, 0.3f), lightPosition, lightIntensity);
     }
 
     @Override
     public void input(Window window, MouseInput mouseInput) {
-    	cameraInc.set(0, 0, 0);
+        cameraInc.set(0, 0, 0);
         if (window.isKeyPressed(GLFW_KEY_W)) {
             cameraInc.z = -1;
         } else if (window.isKeyPressed(GLFW_KEY_S)) {
@@ -154,36 +106,60 @@ public class DummyGame implements IGameLogic {
         } else if (window.isKeyPressed(GLFW_KEY_D)) {
             cameraInc.x = 1;
         }
-        if (window.isKeyPressed(GLFW_KEY_Z)) {
+        if (window.isKeyPressed(GLFW_KEY_Q)) {
             cameraInc.y = -1;
-        } else if (window.isKeyPressed(GLFW_KEY_X)) {
+        } else if (window.isKeyPressed(GLFW_KEY_E)) {
             cameraInc.y = 1;
+        }
+        float lightPos = spotLightList[0].getPointLight().getPosition().z;
+        if (window.isKeyPressed(GLFW_KEY_N)) {
+            this.spotLightList[0].getPointLight().getPosition().z = lightPos + 0.1f;
+        } else if (window.isKeyPressed(GLFW_KEY_M)) {
+            this.spotLightList[0].getPointLight().getPosition().z = lightPos - 0.1f;
         }
     }
 
     @Override
     public void update(float interval, MouseInput mouseInput) {
-    	// Update camera position
-        camera.movePosition(cameraInc.x * CAMERA_POS_STEP,
-            cameraInc.y * CAMERA_POS_STEP,
-            cameraInc.z * CAMERA_POS_STEP);
+        // Update camera position
+        camera.movePosition(cameraInc.x * CAMERA_POS_STEP, cameraInc.y * CAMERA_POS_STEP, cameraInc.z * CAMERA_POS_STEP);
 
         // Update camera based on mouse            
-        if (mouseInput.isRightButtonPressed()) {        	
+        if (mouseInput.isRightButtonPressed()) {
             Vector2f rotVec = mouseInput.getDisplVec();
             camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY, rotVec.y * MOUSE_SENSITIVITY, 0);
         }
+
+        // Update spot light direction
+        spotAngle += spotInc * 0.05f;
+        if (spotAngle > 2) {
+            spotInc = -1;
+        } else if (spotAngle < -2) {
+            spotInc = 1;
+        }
+        double spotAngleRad = Math.toRadians(spotAngle);
+        Vector3f coneDir = spotLightList[0].getConeDirection();
+        coneDir.y = (float) Math.sin(spotAngleRad);
+
+        // Update directional light direction, intensity and colour
+        lightAngle += 1.1f;
+        double angRad = Math.toRadians(lightAngle);
+        directionalLight.getDirection().x = (float) Math.sin(angRad);
+        directionalLight.getDirection().y = (float) Math.cos(angRad);
     }
 
     @Override
     public void render(Window window) {
-        renderer.render(window, gameItems, camera);
+        renderer.render(window, camera, gameItems, ambientLight,
+                pointLightList, spotLightList, directionalLight);
     }
 
     @Override
     public void cleanup() {
         renderer.cleanup();
-        mesh.cleanUp();
+        for (GameItem gameItem : gameItems) {
+            gameItem.getMesh().cleanUp();
+        }
     }
 
 }
