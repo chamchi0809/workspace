@@ -13,7 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import org.lwjglb.engine.IGameLogic;
 import org.lwjglb.engine.GameEngine;
 import org.lwjglb.engine.Window;
-import org.lwjglb.game.Renderer;
+import org.lwjglb.engine.graph.Renderer;
 import org.lwjglb.engine.Timer;
 
 import org.lwjglb.game.DummyGame;

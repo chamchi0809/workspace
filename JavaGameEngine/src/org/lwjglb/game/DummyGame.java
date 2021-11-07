@@ -15,8 +15,11 @@ import org.lwjglb.engine.graph.Material;
 import org.lwjglb.engine.graph.Mesh;
 import org.lwjglb.engine.graph.OBJLoader;
 import org.lwjglb.engine.graph.PointLight;
+import org.lwjglb.engine.graph.Renderer;
 import org.lwjglb.engine.graph.SpotLight;
 import org.lwjglb.engine.graph.Texture;
+import org.lwjglb.engine.SceneLight;
+import org.lwjglb.game.Hud;
 
 public class DummyGame implements IGameLogic {
 
@@ -45,12 +48,17 @@ public class DummyGame implements IGameLogic {
     private float spotAngle = 0;
 
     private float spotInc = 1;
+    
+    private Hud hud;
+    
+    private SceneLight sceneLight;
 
     public DummyGame() {
         renderer = new Renderer();
         camera = new Camera();
         cameraInc = new Vector3f(0.0f, 0.0f, 0.0f);
         lightAngle = -90;
+        
     }
 
     @Override
@@ -91,6 +99,21 @@ public class DummyGame implements IGameLogic {
 
         lightPosition = new Vector3f(-1, 0, 0);
         directionalLight = new DirectionalLight(new Vector3f(0.95f, 0.7f, 0.3f), lightPosition, lightIntensity);
+        
+        sceneLight = new SceneLight();
+        sceneLight.setAmbientLight(ambientLight);
+        sceneLight.setDirectionalLight(directionalLight);
+        sceneLight.setPointLightList(pointLightList);
+        sceneLight.setSpotLightList(spotLightList);
+        
+        try {
+			hud = new Hud("Yubin Gay");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        hud.getGameItems()[0].setScale(.5f);
     }
 
     @Override
@@ -150,8 +173,7 @@ public class DummyGame implements IGameLogic {
 
     @Override
     public void render(Window window) {
-        renderer.render(window, camera, gameItems, ambientLight,
-                pointLightList, spotLightList, directionalLight);
+        renderer.render(window, camera, gameItems, sceneLight, hud);
     }
 
     @Override

@@ -15,7 +15,6 @@
     <fullyQualifiedTypeName name="java.io.File"/>
     <fullyQualifiedTypeName name="org.lwjgl.system.MemoryUtil"/>
     <fullyQualifiedTypeName name="java.nio.FloatBuffer"/>
-    <fullyQualifiedTypeName name="org.lwjglb.engine.Window"/>
     <fullyQualifiedTypeName name="org.lwjglb.game.Renderer"/>
     <fullyQualifiedTypeName name="org.joml.Matrix4f"/>
     <fullyQualifiedTypeName name="org.lwjglb.engine.graph.Mesh"/>
@@ -34,4 +33,8 @@
     <fullyQualifiedTypeName name="org.lwjglb.engine.graph.OBJLoader"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="org.joml.Vector4f"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.IHud"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.Window"/>
+    <fullyQualifiedTypeName name="org.lwjglb.game.Hud"/>
+    <fullyQualifiedTypeName name="org.lwjglb.engine.SceneLight"/>
 </qualifiedTypeNameHistroy>

@@ -50,7 +50,7 @@
 	</section>
 	<section name="DialogBounds_SuperInterfaceSelectionDialog">
 		<item key="DIALOG_X_ORIGIN" value="114"/>
-		<item key="DIALOG_Y_ORIGIN" value="-14"/>
+		<item key="DIALOG_Y_ORIGIN" value="-10"/>
 		<item key="DIALOG_WIDTH" value="425"/>
 		<item key="DIALOG_HEIGHT" value="681"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

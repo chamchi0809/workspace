@@ -11,27 +11,13 @@ import static org.lwjgl.stb.STBImage.*;
 public class Texture {
 
     private final int id;
+    
+    private final int width;
+    
+    private final int height;
 
     public Texture(String fileName) throws Exception {
-        this(loadTexture(fileName));
-    }
-
-    public Texture(int id) {
-        this.id = id;
-    }
-
-    public void bind() {
-        glBindTexture(GL_TEXTURE_2D, id);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    private static int loadTexture(String fileName) throws Exception {
-        int width;
-        int height;
-        ByteBuffer buf;
+    	ByteBuffer buf;
         // Load Texture file
         try (MemoryStack stack = MemoryStack.stackPush()) {
             IntBuffer w = stack.mallocInt(1);
@@ -66,11 +52,28 @@ public class Texture {
         glGenerateMipmap(GL_TEXTURE_2D);
 
         stbi_image_free(buf);
-
-        return textureId;
+        
+        this.id = textureId;
     }
 
+    public void bind() {
+        glBindTexture(GL_TEXTURE_2D, id);
+    }
+
+    public int getId() {
+        return id;
+    }
+    
+    public int getWidth() {
+    	return width;
+    }
+    
     public void cleanup() {
         glDeleteTextures(id);
     }
+
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return height;
+	}
 }
